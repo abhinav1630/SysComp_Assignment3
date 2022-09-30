@@ -27,15 +27,19 @@ int main() {
     Option_Price ip(option_type, strike, spot, interest_rate, time_to_maturity, volatility);
 
 double ans ;
+double price_bs;
+double delta_bs;
+double price_binomial;
+double delta_binomial;
 
-    for( auto ele: ip.Binomial_Pricer()){
-//        ans = ele;
-        cout<<"Price from Binomial "<<ele<<endl;
-    }
+price_bs  = ip.BSM_Pricer().front();
+delta_bs = ip.BSM_Pricer().back();
 
+price_binomial  = ip.Binomial_Pricer().front();
 
-    for( auto ele: ip.BSM_Pricer()){
-//        ans = ele;
-        cout<<"Price from Black Scholes "<<ele<<endl;
-    }
+cout<<"Price from BSM "<< price_bs<< endl;
+cout<<"Delta BSM "<< delta_bs <<endl;
+
+cout<<"Price from Binomial "<< price_binomial<< endl;
+
 }

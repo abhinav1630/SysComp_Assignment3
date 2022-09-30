@@ -96,6 +96,7 @@ std::vector<double> Option_Price :: Binomial_Pricer() {
     }
 
 
+
     double k = node[0];
     ans.push_back(node[0]);
 //    ans.push_back(option_delta);
@@ -152,12 +153,13 @@ std::vector<double> Option_Price :: BSM_Pricer(){
     double volatility = getVolatility();
 
     double price_of_option;
-    double delta_black_scholes = 1.0;
+    double delta_black_scholes;
     vector <double> ans;
     double d1 = (1 / (volatility * sqrt (timeMaturity))) * (log(spot_price / strike)   + (rate + volatility * volatility
             / 2) * timeMaturity);
     double d2 = d1 - volatility * sqrt(timeMaturity);
 
+    delta_black_scholes= NormalCDF(d1);
 //    double cdf = NormalCDF(d1);
 
     if (isCallOption(flag)) {
@@ -170,7 +172,7 @@ std::vector<double> Option_Price :: BSM_Pricer(){
     }
 
     ans.push_back(price_of_option);
-//    ans.push_back(delta_black_scholes);
+    ans.push_back(delta_black_scholes);
 
     return ans;
 }
